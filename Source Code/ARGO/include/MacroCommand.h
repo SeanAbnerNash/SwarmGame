@@ -1,0 +1,43 @@
+#pragma once
+#include "Command.h"
+#include "AnalogMoveCommand.h"
+#include "AnalogRotateCommand.h"
+#include "CloseWindowCommand.h"
+#include "FireBulletCommand.h" 
+#include "MenuMoveDownCommand.h"
+#include "MenuMoveUpCommand.h"
+#include "MenuSelectButtonCommand.h"
+#include "MoveDownCommand.h"
+#include "MoveLeftCommand.h"
+#include "MoveRightCommand.h"
+#include "MoveUpCommand.h" 
+#include "MenuCancelCommand.h"
+#include "MenuConfirmCommand.h"
+#include "MenuMoveLeftCommand.h"
+#include "MenuMoveRightCommand.h"
+#include "GoToLicenseScreenCommand.h"
+#include "GoToMainMenuCommand.h"
+#include "ThrowGlowstickCommand.h"
+#include "GoToGameScreenCommand.h"
+#include "WeaponCycleDownCommand.h"
+#include "WeaponCycleUpCommand.h"
+ 
+class MacroCommand
+{
+public:
+	MacroCommand();
+	void add(Command* t_command);
+	void addAndExecute(Command* t_command, Entity& t_entity, EventManager& t_eventManager, float t_dt);
+	void executeTop(Entity& t_entity, EventManager& t_eventManager, float t_dt);
+	void executeTopAndPop(Entity& t_entity, EventManager& t_eventManager, float t_dt);
+	void popTopCommand();
+	std::stack<Command*> getCommands();
+private:
+	// stack that holds list of current commands
+	std::stack<Command*> m_commands;
+	// stack to hold all executed commands, 
+	// m_commands changes constantly as commands are executed and removed
+	// m_commandHistory does not
+	std::stack<Command*> m_commandHistory;
+};
+

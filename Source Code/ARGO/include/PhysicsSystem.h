@@ -1,0 +1,29 @@
+#pragma once
+#include "BaseSystem.h"
+#include "Entity.h"
+#include "SDL.h"
+#include "TransformComponent.h"
+#include "InputComponent.h"
+#include "ForceComponent.h"
+#include <iostream>
+#include "Debug.h"
+#include "Utilities.h"
+
+class PhysicsSystem : public BaseSystem
+{
+public:
+	PhysicsSystem(EventManager& t_eventManager);
+	~PhysicsSystem();
+	void update(Entity& t_entity, float t_dt);
+	void update(Entity& t_entity);
+	void handleFriction(float t_dt);
+
+private: 
+
+	void updateWithInput(const PhysicsMove& t_event);
+	void updateRotation(const PhysicsRotate& t_event);
+	void handleRotation(TransformComponent* t_transformComp);
+ 	const float FRICTION_SCALAR = 0.9f;
+	float m_frictionTimer;
+	int m_applyFriction;
+};
